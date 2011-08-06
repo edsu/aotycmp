@@ -20,7 +20,7 @@ def main():
             a['spotify'] = spotify(artist, album)
             a['rdio'] = rdio(artist, album)
             logging.info(a)
-        except Excpetion, e:
+        except Exception, e:
             logging.exception(e)
         time.sleep(1)
     open("aotycmp.json", "w").write(json.dumps(aoty))

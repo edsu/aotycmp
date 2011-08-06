@@ -1,6 +1,7 @@
 aotycmp is a hack to see what listed on Alf Eaton's `Albums of the Year (AOTY) <http://aoty.hubmed.org>`_ list of lists can be streamed from `Spotify <http://spotify.com>`_ and `Rdio <http://rdio.com>`_. The results are found in aoty.json.
 
-The steps for reproducing the aoty.json are to:
+The steps for reproducing the results stored in aotycmp.json are to:
+
     1. pip install -r requirements.pip
     2. cp config.py.orig config.py
     3. get a Rdio API Key and put credentials in config.py
