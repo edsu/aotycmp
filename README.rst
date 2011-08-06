@@ -1,4 +1,4 @@
-aotycmp is a hack to see what listed on Alf Eaton's `Albums of the Year (AOTY) <http://aoty.hubmed.org>`_ list of lists can be streamed from `Spotify <http://spotify.com>`_ and `Rdio <http://rdio.com>`_. The results are found in aoty.json.
+aotycmp is a hack to see what albums on Alf Eaton's `Albums of the Year (AOTY) <http://aoty.hubmed.org>`_ list of lists can be streamed from `Spotify <http://spotify.com>`_ and `Rdio <http://rdio.com>`_. The results are found in aoty.json.
 
 The steps for reproducing the results stored in aotycmp.json are to:
 
