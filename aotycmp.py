@@ -11,7 +11,7 @@ import config
 
 
 def main():
-    logging.basicConfig(filename="aotycmp.log")
+    logging.basicConfig(filename="aotycmp.log", level=logging.INFO)
     aoty = json.loads(open("aoty-dedupe.json").read())
     for a in aoty:
         try:

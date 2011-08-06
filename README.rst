@@ -12,4 +12,5 @@ The steps for reproducing the aoty.json are to:
 5. ./aotycmp.py # reds aoty-dedupe.json and stores results of rdio/spotify lookups in aotycmp.json
 
 Maybe I should've dumped the crawled data into CouchDB instead of chaining
-JSON dumps together like this. Could be more fun right?
+JSON dumps together like this. Could be more fun right? It would make it
+easier to not repeat spotify and rdio API lookups. 
