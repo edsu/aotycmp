@@ -27,12 +27,12 @@ If you have your own list of albums, and you want to see if they are available
 on spotify and rdio, you should be able to create your own JSON file including
 basically a list of albums:
 
-    [
-      {
-        "album": "Movement',
-        "artist": "New Order"
-      }
-      ...
-    ]
+>    [
+>      {
+>        "album": "Movement',
+>        "artist": "New Order"
+>      }
+>      ...
+>    ]
 
 And feed it to aoty-cmp.py...
