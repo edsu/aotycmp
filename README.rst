@@ -5,9 +5,9 @@ aotycmp is a hack to see what albums on Alf Eaton's `Albums of the Year (AOTY) <
 
 There are a few JSON data files in this repository:
 
-    * aoty.json - the full dump af AOTY scraped data
-    * aoty-dedupe.json - the albums aggregated together 
-    * aoty-cmp.json - the results of looking up albums at rdio and spotify
+* aoty.json - the full dump af AOTY scraped data
+* aoty-dedupe.json - the albums aggregated together 
+* aoty-cmp.json - the results of looking up albums at rdio and spotify
 
 The steps for reproducing the results stored in aoty-cmp.json are to:
 
