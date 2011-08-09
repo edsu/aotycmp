@@ -5,11 +5,11 @@
 import csv
 import json
 
-writer = csv.writer(open('aoty-cmp.csv', 'w'), dialect='excel')
+writer = csv.writer(open('aoty_cmp.csv', 'w'), dialect='excel')
 writer.writerow(["Artist", "Album", "Listed", "Spotify URL", 
     "Spotify Streamable", "Rdio URL", "Rdio Streamable"])
 
-for a in json.loads(open('aoty-cmp.json').read()):
+for a in json.loads(open('aoty_cmp.json').read()):
     if not a.has_key('spotify') or not a.has_key('rdio'):
         continue
     row = [a['artist'].encode('utf-8'),

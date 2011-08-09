@@ -11,7 +11,7 @@ import config
 
 
 def main():
-    logging.basicConfig(filename="aoty-cmp.log", level=logging.INFO)
+    logging.basicConfig(filename="aoty_cmp.log", level=logging.INFO)
     aoty = json.loads(open("aoty-dedupe.json").read())
     for a in aoty:
         try:
@@ -23,7 +23,7 @@ def main():
         except Exception, e:
             logging.exception(e)
         time.sleep(1)
-    open("aoty-cmp.json", "w").write(json.dumps(aoty, indent=2))
+    open("aoty_cmp.json", "w").write(json.dumps(aoty, indent=2))
 
 def spotify(artist, album):
     q = '%s AND "%s"' % (artist, album)
@@ -37,8 +37,8 @@ def spotify(artist, album):
     for a in response['albums']:
         if a['name'] == album and spotify_artist(a, artist):
             url = a['href']
-        if config.COUNTRY in a['availability']['territories'].split(' '):
-            can_stream = True
+            if config.COUNTRY in a['availability']['territories'].split(' '):
+                can_stream = True
 
     return {'can_stream': can_stream, 'url': url}
 

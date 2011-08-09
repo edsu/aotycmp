@@ -23,7 +23,7 @@ for k in album_keys:
     album['listed'] = album_counts[k]
     sorted_albums.append(album)
 
-open('aoty-dedupe.json', 'w').write(json.dumps(sorted_albums, indent=2))
+open('aoty_dedupe.json', 'w').write(json.dumps(sorted_albums, indent=2))
 
 
 

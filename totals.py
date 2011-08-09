@@ -2,7 +2,7 @@
 
 import json
 
-aoty = json.loads(open('aoty-cmp.json').read())
+aoty = json.loads(open('aoty_cmp.json').read())
 
 rdio = spotify = count = 0.0
 
