@@ -12,7 +12,7 @@ import config
 
 def main():
     logging.basicConfig(filename="aoty_cmp.log", level=logging.INFO)
-    aoty = json.loads(open("aoty-dedupe.json").read())
+    aoty = json.loads(open("aoty_dedupe.json").read())
     for a in aoty:
         try:
             artist = a['artist']
