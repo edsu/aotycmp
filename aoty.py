@@ -7,7 +7,7 @@ from lxml import html
 
 def main():
     aoty = {}
-    for y in [2007, 2008, 2009, 2010]:
+    for y in [2007, 2008, 2009, 2010, 2011, 2012]:
         aoty[y] = list(year(y))
     open("aoty.json", "w").write(json.dumps(aoty, indent=2))
 
@@ -16,6 +16,7 @@ def year(y):
     while start != None:
         url = 'http://apps.hubmed.org/aoty/%i?_start=%i' % (y, start)
         doc = html.parse(url)
+        print url
         for a in album_lists(doc):
             yield a
         if doc.xpath(".//a[@rel='next']"):
@@ -33,9 +34,9 @@ def album_lists(doc):
                 'albums': list(albums(album_list))}
 
 def albums(doc):
-    for album in doc.xpath(".//li[@class='album']"):
-        artist = album.xpath("string(a[@class='artist'])")
-        album_title = album.xpath("string(a[@class='title'])")
+    for album in doc.xpath(".//li[@class='album haudio']"):
+        artist = album.xpath("string(a[@class='artist contributor'])")
+        album_title = album.xpath("string(a[@class='title album'])")
         yield {'artist': artist, 'album': album_title}
 
 if __name__ == "__main__":

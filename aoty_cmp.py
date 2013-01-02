@@ -29,7 +29,8 @@ def spotify(artist, album):
     q = '%s AND "%s"' % (artist, album)
     q = quote(q.encode('utf-8'))
     url = 'http://ws.spotify.com/search/1/album.json?q=' + q
-    response = json.loads(urlopen(url).read())
+    j = urlopen(url).read()
+    response = json.loads(j)
 
     can_stream = False
     url = None
