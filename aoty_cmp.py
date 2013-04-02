@@ -70,7 +70,7 @@ def spotify(artist, album):
     url = None
 
     for a in response['albums']:
-        if a['name'].lower() == album.lower() and spotify_artist(a, artist):
+        if clean(a['name']) == clean(album) and spotify_artist(a, artist):
             url = a['href']
             if config.COUNTRY in a['availability']['territories'].split(' ') or a['availability']['territories'] == 'worldwide': 
                 can_stream = True
@@ -126,6 +126,7 @@ def clean(a):
     a = a.lower()
     a = re.sub('^the ', '', a)
     a = re.sub(' \(.+\)$', '', a)
+    a = re.sub(r'''[\.,-\/#!$%\^&\*;:{}=\-_`~() ]''', '', a)
     return a
 
 if __name__ == "__main__":
