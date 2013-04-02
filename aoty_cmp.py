@@ -100,6 +100,10 @@ def rdio(artist, album):
     else: 
         raise Exception("received %s when searching rdio for %s/%s", (r['status'], artist, album))
 
+    if not response.get('result', {}).get('results', None):
+        logging.error("received odd json from rdio when searching for %s/%s: %s", artist, album, response)
+        return {'can_stream': False, 'url': None}
+
     can_stream = False
     url = None
     for r in response['result']['results']:
