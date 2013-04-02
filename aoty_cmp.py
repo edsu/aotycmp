@@ -25,8 +25,8 @@ def main(console=False):
                 progress(a)
             logging.info(a)
         except Exception, e:
-            logging.exception(e)
-            sys.exit()
+            logging.exception("error while comparing")
+            sys.exit(1)
         time.sleep(1)
     open("aoty_cmp.json", "w").write(json.dumps(aoty, indent=2))
 
@@ -47,6 +47,14 @@ def spotify(artist, album):
             j = urlopen(url).read()
             response = json.loads(r.read())
             break
+
+        # spotify throws a weird 403 error when searching for 
+        # !!! / Strange Weather Isn't It
+        # e.g. http://ws.spotify.com/search/1/album.json?q=%21%21%21%20AND%20%22Strange%20Weather%2C%20Isn%27t%20It%3F%22
+
+        elif r.code == 403:
+            logging.info("got 403 when searching spotify for %s/%s", artist, album)
+            return {"can_stream": False, "url": None}
 
         if tries > max_tries: 
             break
@@ -85,11 +93,12 @@ def rdio(artist, album):
         'types': 'Album',
         '_region': config.COUNTRY
     }
-    j = client.request('http://api.rdio.com/1/', 'POST', urlencode(q))[1]
-    try: 
-        response = json.loads(j)
-    except: 
-        logging.error("unable to load json from %s: %s", url, j)
+    response = None
+    r, content = client.request('http://api.rdio.com/1/', 'POST', urlencode(q))
+    if r['status'] == '200':
+        response = json.loads(content)
+    else: 
+        raise Exception("received %s when searching rdio for %s/%s", (r['status'], artist, album))
 
     can_stream = False
     url = None
