@@ -5,7 +5,7 @@
 import csv
 import json
 
-writer = csv.writer(open('aoty_cmp.csv', 'w'), dialect='excel')
+writer = csv.writer(open('aoty_cmp.csv', 'w'))
 writer.writerow(["Artist", "Album", "Listed", "Spotify URL", 
     "Spotify Streamable", "Rdio URL", "Rdio Streamable"])
 
