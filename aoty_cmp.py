@@ -88,7 +88,6 @@ def rdio(artist, album):
     j = client.request('http://api.rdio.com/1/', 'POST', urlencode(q))[1]
     try: 
         response = json.loads(j)
-        print json.dumps(response, indent=2)
     except: 
         logging.error("unable to load json from %s: %s", url, j)
 
