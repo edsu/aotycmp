@@ -128,6 +128,7 @@ def progress(a):
 
 def clean(a):
     a = a.lower()
+    a = re.sub(' and ', '', a)
     a = re.sub('^the ', '', a)
     a = re.sub(' \(.+\)$', '', a)
     a = re.sub(r'''[\.,-\/#!$%\^&\*;:{}=\-_`~() ]''', '', a)

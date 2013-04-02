@@ -21,6 +21,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(clean("Third (Non EU Version)"), "third")
         self.assertEqual(clean("Thriller."), "thriller")
         self.assertEqual(clean("The Fixx"), "fixx")
+        self.assertEqual(clean("The Good and the Bad"), "goodthebad")
 
 if __name__ == "__main__":
     unittest.main()
