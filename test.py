@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from aoty_cmp import rdio, spotify, clean
+from compare import rdio, spotify, clean
 
 import unittest
 

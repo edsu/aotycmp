@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 
-import json
+"""
+calculates summary totals given the output of compare.py
+"""
 
-aoty = json.loads(open('aoty_cmp.json').read())
+import json
+import fileinput
 
 rdio = spotify = count = 0.0
 
-for a in aoty:
+for line in fileinput.input():
+    a = json.loads(line)
     if not a.has_key('rdio'): continue
 
     if a['rdio']['can_stream']:
