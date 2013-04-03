@@ -37,7 +37,7 @@ def spotify(artist, album):
 
     # spotify search api throws sporadic 502 errors
     tries = 0
-    max_tries = 10
+    max_tries = 100
     response = None
     while True:
         tries += 1
@@ -57,7 +57,7 @@ def spotify(artist, album):
             return {"can_stream": False, "url": None}
 
         if tries > max_tries: 
-            break
+            raise Exception("no more tries searching %s/%s at spotify" % (artist, album))
 
         backoff = tries ** 2 
         logging.warn("received %s when fetching %s, sleeping %s", r.code, url, backoff)
@@ -93,16 +93,28 @@ def rdio(artist, album):
         'types': 'Album',
         '_region': config.COUNTRY
     }
-    response = None
-    r, content = client.request('http://api.rdio.com/1/', 'POST', urlencode(q))
-    if r['status'] == '200':
-        response = json.loads(content)
-    else: 
-        raise Exception("received %s when searching rdio for %s/%s", (r['status'], artist, album))
 
-    if not response.get('result', {}).get('results', None):
-        logging.error("received odd json from rdio when searching for %s/%s: %s", artist, album, response)
-        return {'can_stream': False, 'url': None}
+    response = None
+    tries = 0
+    max_tries = 100
+    while True:
+        r, content = client.request('http://api.rdio.com/1/', 'POST', urlencode(q))
+        if r['status'] == '200':
+            response = json.loads(content)
+            if response and response.get('result', {}).get('results', None) != None:
+                break
+            else:
+                logging.info("unexpected json from rdio for %s/%s: %s", artist, album, response)
+        else:
+            logging.warn("received %s when searching rdio for %s/%s", (r['status'], artist, album))
+
+        tries += 1
+        if tries > max_tries:
+            raise Exception("no more tries left searching rdio for %s/%s" % (artist, album))
+
+        backoff = tries ** 2
+        logging.debug("sleeping %s" % backoff)
+        time.sleep(backoff)
 
     can_stream = False
     url = None
