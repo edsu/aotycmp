@@ -1,10 +1,17 @@
 #!/usr/bin/env python
 
+"""
+Reads album information as line-oriented JSON from stdin or a supplied filename
+and looks up the album on spotify and rdio and writes out line-oriented JSON 
+with streaming information.
+"""
+
 import re
 import sys
 import json
 import time
 import logging
+import fileinput
 from urllib import quote, urlopen, urlencode
 
 import oauth2 as oauth
@@ -12,23 +19,22 @@ import oauth2 as oauth
 import config
 
 
-def main(console=False):
-    logging.basicConfig(filename="aoty_cmp.log", level=logging.INFO)
+def main():
+    logging.basicConfig(filename="compare.log", level=logging.INFO)
     aoty = json.loads(open("aoty_dedupe.json").read())
-    for a in aoty:
+    for line in fileinput.input():
+        a = json.loads(line)
         try:
             artist = a['artist']
             album = a['album']
             a['spotify'] = spotify(artist, album)
             a['rdio'] = rdio(artist, album)
-            if console:
-                progress(a)
             logging.info(a)
+            print json.dumps(a)
         except Exception, e:
             logging.exception("error while comparing")
             sys.exit(1)
         time.sleep(1)
-    open("aoty.json", "w").write(json.dumps(aoty, indent=2))
 
 def spotify(artist, album):
     q = '%s AND "%s"' % (artist, album)
@@ -126,18 +132,6 @@ def rdio(artist, album):
 
     return {'can_stream': can_stream, 'url': url}
 
-def progress(a):
-    r = a['rdio']['can_stream']
-    s = a['spotify']['can_stream']
-    if r and s:
-        sys.stderr.write(".")
-    elif r:
-        sys.stderr.write("r")
-    elif s:
-        sys.stderr.write("s")
-    else:
-        sys.stderr.write("x")
-
 def clean(a):
     a = a.lower()
     a = re.sub(' and ', '', a)
@@ -147,4 +141,4 @@ def clean(a):
     return a
 
 if __name__ == "__main__":
-    main(console=True)
+    main()
