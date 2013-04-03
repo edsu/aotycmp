@@ -28,7 +28,7 @@ def main(console=False):
             logging.exception("error while comparing")
             sys.exit(1)
         time.sleep(1)
-    open("aoty_cmp.json", "w").write(json.dumps(aoty, indent=2))
+    open("aoty.json", "w").write(json.dumps(aoty, indent=2))
 
 def spotify(artist, album):
     q = '%s AND "%s"' % (artist, album)
