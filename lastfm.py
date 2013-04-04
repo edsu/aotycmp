@@ -5,7 +5,6 @@ Reads the line oriented output of compare.py and layers in last.fm information
 where available. You'll need to add your lastfm key to config.py
 """
 
-import sys
 import json
 import time
 import config
