@@ -17,18 +17,25 @@ def main():
     for line in fileinput.input():
         a = json.loads(line)
         info = lastfm(a["artist"], a["album"])
-        if not info:
-            logging.warn("no hit for %s/%s", artist, album)
-        else:
+        if info and info.has_key('album'):
             logging.info("found %s" % info["album"]["url"])
             a["lastfm"] = info["album"]
+        else:
+            logging.warn("no hit for %s/%s", a["artist"], a["album"])
         print json.dumps(a)
         # TODO: make this configurable
         time.sleep(1)
 
 def lastfm(artist, album):
-    url = 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=%s&artist=%s&album=%s&format=json'
-    r = requests.get(url % (config.LASTFM_KEY, artist, album))
+    url = 'http://ws.audioscrobbler.com/2.0/'
+    q = {
+        'method': 'album.getinfo',
+        'api_key': config.LASTFM_KEY,
+        'artist': artist,
+        'album': album,
+        'format': 'json'
+    }
+    r = requests.get(url, params=q)
     if r.status_code == 200:
         return json.loads(r.content)
     else:
