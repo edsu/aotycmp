@@ -14,7 +14,7 @@ import requests
 import fileinput
 
 def main():
-    logging.basicConfig(filename="augment.log", level=logging.INFO)
+    logging.basicConfig(filename="lastfm.log", level=logging.INFO)
     for line in fileinput.input():
         a = json.loads(line)
         if a.has_key('rdio') and a['rdio']['can_stream']:
