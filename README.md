@@ -3,22 +3,15 @@ aotycmp
 
 aotycmp is a hack to see what albums on Alf Eaton's `Albums of the Year (AOTY) <http://aoty.hubmed.org>`_ list of lists can be streamed from `Spotify <http://spotify.com>`_ and `Rdio <http://rdio.com>`_.
 
-There are a few JSON data files in this repository:
+If you just want to see the current results take a look at the line-oriented
+aoty.json file.
 
-* aoty.json - the full dump af AOTY scraped data
-* aoty_dedupe.json - the albums aggregated together 
-* aoty_cmp.json - the results of looking up albums at rdio and spotify
-* aoty_cmp.csv - results suitable for import to a spreadsheet
-
-The steps for reproducing the results stored in aoty_cmp.json are to:
+The steps for reproducing the results can be done using the following steps:
 
     pip install -r requirements.pip
     cp config.py.orig config.py
-    # get a Rdio API Key and put credentials in config.py
-    ./aoty.py # crawls aoty.hubmed.org and stores data in aoty.json
-    ./aoty_dedupe.py # dedupes albums across lists and stores in aoty_dedupe.json
-    ./aoty_cmp.py # reads aoty_dedupe.json and stores results of rdio/spotify lookups in aoty_cmp.json
-    ./aoty_csv.py # dump aoty_cmp.json as csv for spreadsheet
+    # add rdio keys to config.py
+    ./aoty.py | ./compare.py > aoty.json
 
 Maybe I should have dumped the crawled data into CouchDB instead of chaining
 JSON dumps together like this. Could be more fun right? It would make it
