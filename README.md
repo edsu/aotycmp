@@ -13,6 +13,11 @@ The steps for reproducing the results can be done using the following steps:
     # add rdio keys to config.py
     ./aoty.py | ./compare.py > aoty.json
 
+If you would like to add LastFM information to the json you will need to get
+an LastFM access key and add it to your config.py, then:
+
+    cat aoty.json | ./lastfm.py > aoty-lastfm.json
+
 Maybe I should have dumped the crawled data into CouchDB instead of chaining
 JSON dumps together like this. Could be more fun right? It would make it
 easier to not repeat spotify and rdio API lookups. 
