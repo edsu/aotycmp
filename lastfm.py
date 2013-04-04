@@ -17,8 +17,6 @@ def main():
     logging.basicConfig(filename="lastfm.log", level=logging.INFO)
     for line in fileinput.input():
         a = json.loads(line)
-        if a.has_key('rdio') and a['rdio']['can_stream']:
-            continue
         info = lastfm(a["artist"], a["album"])
         if not info:
             logging.warn("no hit for %s/%s", artist, album)
